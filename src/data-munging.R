@@ -1,47 +1,32 @@
+## Revise variable names #######################################################################
 
-## Reading CSV structured data ##
-urls <- list(
-  parking_meters_csv = "https://data.sfgov.org/api/views/9qrz-nwix/rows.csv?accessType=DOWNLOAD",
-  parking_meters_json = "https://data.sfgov.org/api/views/9qrz-nwix/rows.json?accessType=DOWNLOAD"
-)
+df <- data.frame("Address"= character(0), "Phone"=character(0), Location.1=character(0))
 
-datasets <- list(
-  show_all = "/Users/gra11/Workspace/R/data/",
-  parking_meters_csv = "/Users/gra11/Workspace/R/data/parking.csv",
-  parking_meters_json = "/Users/gra11/Workspace/R/data/parking.json"
-)
+names(df)
 
+split_names <- strsplit(names(df),"\\.")
+class(split_names) #list
+class(split_names[1]) #list
+class(split_names[[1]]) #character
 
-download.file(urls$parking_meters_csv, destfile = "data/parking.csv")
-list.files(datasets$show_all)
-sf_parking_meters_csv <- datasets$parking_meters_csv
-read.csv(sf_parking_meters_csv, sep = ",", header = TRUE)
+split_names[[3]][2] #3rd list second element
 
+first_element <- function(x){x[1]}
 
+sapply(split_names, first_element) #removes the "1"
 
-## Reading unstructured data ##
-con <- url("http://bbc.co.uk", "r")
-lines <- readLines(con, n= 30)
-close(con)
-head(lines)
+names(df) <- sapply(split_names, first_element) #overrites df
 
-## Reading JSON ##
-library(RJSONIO)
+## Create new variables ########################################################################
 
-download.file(
-  urls$parking_meters_json, 
-  destfile = datasets$parking_meters_json
-)
+# Use the airquality data set and add a new field, ozoneRanges. This field will take the current 
+# quantitative variable Ozone and calculate a corresponding range based on its value.
 
-sf_parking_meters_json <- fromJSON(
-  datasets$parking_meters_json
-)[[2]]
+airquality$Ozone[1:10] #First 10 rows of Ozone values
 
-sapply(
-  sf_parking_meters_json, 
-  function(x) x[[2]]
-)
+seq(0, 10, by=2) #Seqence from 1 -> 10 in increments of 2
 
-toString(sf_parking_meters_json)
-datasets$parking_meters_json
-
+ozoneRanges <- cut(airquality$Ozone[1:10], seq(0, 200, by=25))
+ozoneRanges
+#Revise cut() function
+cut(c(1,3,3), c(1,2,3))
