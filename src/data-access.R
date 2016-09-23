@@ -6,12 +6,14 @@ urls <- list(
   parking_meters_json = "https://data.sfgov.org/api/views/9qrz-nwix/rows.json?accessType=DOWNLOAD"
 )
 
+data_path <- paste0(getwd(), "/data/")
+data_path
 datasets <- list(
-  show_all = "/Users/gra11/Workspace/R/data/",
-  parking_meters_csv = "/Users/gra11/Workspace/R/data/parking.csv",
-  parking_meters_json = "/Users/gra11/Workspace/R/data/parking.json"
+  show_all = data_path,
+  parking_meters_csv =  paste0(data_path, "parking.csv"),
+  parking_meters_json =  paste0(data_path, "parking.json")
 )
-
+datasets$parking_meters_csv
 
 download.file(urls$parking_meters_csv, destfile = "data/parking.csv")
 list.files(datasets$show_all)
