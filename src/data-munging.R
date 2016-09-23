@@ -114,4 +114,43 @@ View(lakers_df)
 ## Binary Categorical Variables ######################################################################
 # When using certain machine learning algorithms, it is more convenient to have a categorical variable
 # (called factors in R) represented as multiple binary variables. You might want to do this for use
-# with a binary classifier algorithm
+# with a binary classifier algorithm.
+
+#Levels filters the individual types of factor within a given sequence. Think Set ie no dupes
+cat_species <- levels(iris$Species)
+
+# We’d like to create three new binary variables, each representing a TRUE or FALSE condition
+# for the Species variable value of the record.
+
+binary_species <- function(c) {iris$Species == c}
+new_vars <- sapply(cat_species, binary_species) #Inferes the column names as the contents of cat_species
+new_vars
+
+
+new_vars
+
+bin_matrix <- cbind(iris[,c('Species')], new_vars)
+bin_matrix
+
+#df[r, c]
+iris[,c('Species')] # Retrieves the Species column from the iris dataframe
+
+bin_matrix[50:55,]
+
+#Copy iris
+bin_iris <- iris
+
+#Add new columns
+bin_iris$setosa <- bin_matrix[,2]
+bin_iris$versicolor <- bin_matrix[,3]
+bin_iris$virginica <- bin_matrix[,4]
+
+names(bin_iris)
+bin_iris # 1 = TRUE 0 = FALSE
+
+
+## MERGE DATASETS #####################################################################################
+
+
+
+
