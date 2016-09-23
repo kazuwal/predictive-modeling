@@ -30,7 +30,7 @@ head(lines)
 library(RJSONIO)
 
 download.file(
-  urls$parking_meters_json, 
+  urls$parking_meters_json,
   destfile = datasets$parking_meters_json
 )
 
@@ -39,7 +39,7 @@ sf_parking_meters_json <- fromJSON(
 )[[2]]
 
 sapply(
-  sf_parking_meters_json, 
+  sf_parking_meters_json,
   function(x) x[[2]]
 )
 
