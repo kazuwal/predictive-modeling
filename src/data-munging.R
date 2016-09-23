@@ -150,7 +150,67 @@ bin_iris # 1 = TRUE 0 = FALSE
 
 
 ## MERGE DATASETS #####################################################################################
+# When you receive two or more data sets of similar structure, you may need to combine 
+# them to obtain the data set you’ll use for machine learning purposes. The data 
+# munging phase is a good time to merge the data sets to form a new data set 
+# containing records from the contributing pieces
 
+data_frame_one <- data.frame(
+  cust_id=c(1:6),
+  product=c(
+    rep("Mouse", 3), rep("Keyboard", 3)
+  )
+)
 
+data_frame_two <- data.frame(
+  cust_id=c(2,4,5),
+  state=c(rep("California", 2), rep("CustID", 1))
+)
 
+data_frame_one
+data_frame_two
 
+#Left outer join
+merge(
+  data_frame_one,
+  data_frame_two,
+  all.x = TRUE
+)
+
+#Right outer join
+merge(
+  data_frame_one,
+  data_frame_two,
+  all.y = TRUE
+)
+
+#Inner join
+merge(
+  data_frame_one,
+  data_frame_two,
+  all = FALSE
+)
+
+#Outer join
+merge(
+  data_frame_one,
+  data_frame_two,
+  all.y = TRUE
+)
+
+## Ordering Datasets ###################################################################################
+
+# As you’re evaluating your data sets for a new data science project, you’ll often notice an ordering of 
+# the data that is natural to the problem being solved with machine learning
+
+#Order the len column
+order(ToothGrowth$len)
+
+#Update data frame with ordered rows
+sorted_data <- ToothGrowth[order(ToothGrowth$len),]
+
+# Order the ToothGrowth data set by two variables. Think of 
+# supp as the primary sort key and len as the 
+# secondary sort key
+
+sorted_data <- ToothGrowth[order(ToothGrowth$len, ToothGrowth$sup),]
