@@ -207,10 +207,103 @@ merge(
 order(ToothGrowth$len)
 
 #Update data frame with ordered rows
-sorted_data <- ToothGrowth[order(ToothGrowth$len),]
+sorted_data <- ToothGrowth[order(ToothGrowth$len),] 
 
 # Order the ToothGrowth data set by two variables. Think of 
 # supp as the primary sort key and len as the 
 # secondary sort key
 
 sorted_data <- ToothGrowth[order(ToothGrowth$len, ToothGrowth$sup),]
+
+## Misshapen datasets ###################################################################################
+
+# Many times you’ll receive a data set that is “misshapen” for use with a machine 
+# learning algorithm  For these instances, you can use the melt() function found 
+# in the reshape2 package.
+
+
+# Wide data has a column for each variable. For example, this is wide-format data:
+
+#   ozone solar.r wind temp month day
+# 1    41     190  7.4   67     5   1
+# 2    36     118  8.0   72     5   2
+# 3    12     149 12.6   74     5   3
+# 4    18     313 11.5   62     5   4
+# 5    NA      NA 14.3   56     5   5
+# 6    28      NA 14.9   66     5   6
+
+# And this is long-format data:
+
+#   month day climate_variable climate_value
+# 1     5   1            ozone            41
+# 2     5   2            ozone            36
+# 3     5   3            ozone            12
+# 4     5   4            ozone            18
+# 5     5   5            ozone            NA
+# 6     5   6            ozone            28
+
+
+# It turns out that you need wide-format data for some types of data analysis and 
+# long-format data for others. In reality, you need long-format data much more 
+# commonly than wide-format data. For example, ggplot2 requires long-format data 
+# (technically tidy data), plyr requires long-format data, and most modelling 
+# functions (such as lm(), glm(), and gam()) require long-format data. But people 
+# often find it easier to record their data in wide format.
+
+# Wide- to long-format data: the melt function
+
+# Assumes that all columns with numeric values are variables with values
+melt(airquality)
+
+names(airquality) <- tolower(names(airquality))
+
+# id.variables are the variables that identify individual rows of data.
+aql <- melt(airquality, id.vars = c("month", "day"),
+  variable.name = "climate_variable", 
+  value.name = "climate_value")
+head(aql)
+
+
+# The dplyr package is a valuable tool for the data munging process, providing the means to filter, 
+# select, restructure, and aggregate tabular data in R.
+
+install.packages("dplyr")
+library(dplyr)
+data(ToothGrowth)
+tooth_growth_df <- tbl_df(ToothGrowth)
+
+# Filter on predicate
+filter(
+  tooth_growth_df, 
+  len == 11.2 & 
+  supp =="VC" 
+)
+
+# Group the supp to together into individual groups and order their corresponding
+# len in descending order
+arrange(
+  tooth_growth_df,
+  supp,
+  desc(len)
+)
+
+# Select subset of data
+select(
+  tooth_growth_df,
+  dose,
+  supp
+)
+
+#Create a new column that is a numeric instance of the supp column
+tooth_growth_df <- mutate(
+  tooth_growth_df,
+  supp_num = as.numeric(supp)
+)
+
+# TODO revise attach(... )
+attach(
+  tooth_growth_df
+)
+
+# TODO revise tilde ~
+plot(len ~ dose, pch = supp_num)
