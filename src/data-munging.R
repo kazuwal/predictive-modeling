@@ -279,8 +279,7 @@ filter(
   supp =="VC" 
 )
 
-# Group the supp to together into individual groups and order their corresponding
-# len in descending order
+# Group the supp to together into individual groups and order their corresponding len in descending order
 arrange(
   tooth_growth_df,
   supp,
@@ -307,3 +306,5 @@ attach(
 
 # TODO revise tilde ~
 plot(len ~ dose, pch = supp_num)
+
+
