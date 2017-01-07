@@ -25,3 +25,6 @@ coef(fit)[1] + coef(fit)[2] * 5
 predict(fit, data.frame(rm = c(2, 4, 5)))
 
 
+plot(cooks.distance(fit))
+
+
