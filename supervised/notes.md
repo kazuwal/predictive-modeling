@@ -6,4 +6,5 @@ avg_time is also known as the “dependent variable” where again the dependent
 
 independent variables are denoted by y
 dependent variables are denoted by x
+
 -----------------------------------------------------------------------------------------
