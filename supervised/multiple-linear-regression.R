@@ -1,5 +1,3 @@
-# avg_time is the response (what we are trying to predict) distance is the predictor (what we are using to predict the response)
-#fit <- lm(formula = avg_time ~ distance , data =  rs)
 library(car)
 
 data("Prestige")
