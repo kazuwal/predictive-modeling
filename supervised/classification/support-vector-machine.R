@@ -32,7 +32,7 @@ linear.svm.fit = svm(Species ~., data= iris.train, kernel="linear", cost = 10, s
 
 
 # View updated plot
-plot(linear.svm.fit, iris.train) 
+plot(linear.svm.fit, iris.train)
 
 iris.prediction = predict(linear.svm.fit, iris.test, type="class")
 plot(iris.prediction)
@@ -42,5 +42,5 @@ iris.test.species = iris.test[, 3]
 table(iris.prediction, iris.test.species)
 
 # Prediction accuracy varies between 92 -92% accuracy
-mean(iris.prediction == iris.test.species) 
+mean(iris.prediction == iris.test.species)
 
