@@ -1,6 +1,8 @@
 library(MASS)
 data("Boston")
 
+# lm(formula = avg_time ~ distance , data =  rs) avg_time is the “response variable” (what we are trying to predict) distance is the “predictor variable” (what we are using to predict the response variable)
+
 names(Boston)
 
 fit <- lm(formula = medv ~ rm, data = Boston)
